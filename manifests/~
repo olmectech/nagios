@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+#
+# This program downloads a package and untars it.
+#
+# Must have EPEL key  wget http://ftp.riken.jp/Linux/fedora/epel/RPM-GPG-KEY-EPEL-6
+
+# Must have EPEL repo wget http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+
+# Install repo # rpm -i epel-release-6-8.noarch.rpm <cr> 
+
+require 'yaml'
+
+
+class Nagios 
+
+class_variable_set(:@@file, 'yum -y install nagios-nrpe nagios-devel')
+class_variable_set(:@@service, '/etc/init.d/nrpe start')
+
+ def install_file
+%x[#{@@file}]
+  end
+
+def start_service
+%x[#{@@service}]
+end
+
+#if Dir.exists?("#{@@dir}") 
+#puts "Directory #{@@dir} exists. Exiting program."
+#else
+o = Nagios.new
+o.install_file
+o.start_service
+#end
+end
